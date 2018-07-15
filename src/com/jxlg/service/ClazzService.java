@@ -27,4 +27,14 @@ public class ClazzService {
         return false;
     }
 
+    /*
+        condition 有内容，根据condition做条件查询
+        无内容，做全查
+     */
+    public List<Clazz> findAll(String condition){
+        List<Object> list = new ArrayList<Object>();
+        list.add(condition);
+        List<Clazz> clazzes = clazzDO.findAll(list);
+        return clazzes;
+    }
 }

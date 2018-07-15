@@ -1,5 +1,7 @@
-
+<%@ page import="java.util.List" %>
+<%@ page import="com.jxlg.entity.Clazz" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -29,5 +31,32 @@
         out.print("你输入的用户名是：" + name + ",密码是：" +
                    password + "!");
     %>
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+        </tr>
+
+    <%
+        List<Clazz> list = (List) request.getAttribute("list");
+        for (Clazz c : list) {
+      %>
+       <tr>
+            <th><%=c.getId()%></th>
+            <th><%=c.getName()%></th>
+        </tr>
+    <%
+        }
+    %>
+    </table>
+  <%--jstl取servlet传递给页面的request对象中list属性的数据--%>
+    <table>
+        <c:forEach items="${list}" var="l">
+            <tr>
+                <th>${l.id}</th>
+                <th>${l.name}</th>
+            </tr>
+        </c:forEach>
+    </table>
 </body>
 </html>

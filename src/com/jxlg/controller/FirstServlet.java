@@ -1,5 +1,6 @@
 package com.jxlg.controller;
 
+import com.jxlg.entity.Clazz;
 import com.jxlg.service.ClazzService;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /*
        接收页面的请求，并将服务器的响应返回给页面
@@ -67,10 +69,14 @@ public class FirstServlet extends HttpServlet {
         ClazzService clazzService = new ClazzService();
 
         if(clazzService.isLogin(name,password)){
-            response.sendRedirect("banner.jsp");//页面跳转，重定向
+            //1 先调用clazzService的方法做个全查
+            List<Clazz> clazzes = clazzService.findAll("");
+            //2 把他放到request对象
+            request.setAttribute("list",clazzes);
+//            response.sendRedirect("banner.jsp");//页面跳转，重定向
             //请求转发 传递数据
-//            request.getRequestDispatcher("banner.jsp")
-//                                        .forward(request,response);
+            request.getRequestDispatcher("banner.jsp")
+                                        .forward(request,response);
         }else{
             response.sendRedirect("index.jsp");
         }

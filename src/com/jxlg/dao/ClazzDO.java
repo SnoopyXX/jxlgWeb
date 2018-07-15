@@ -44,7 +44,7 @@ public class ClazzDO {
         List<Clazz> list = new ArrayList<Clazz>();
 //        String[] objs = {condition};
         try {
-            ResultSet rs = new DBUtils().find("select * from clazz where like ?",objects);
+            ResultSet rs = new DBUtils().find("select * from clazz where name like ?",objects);
             while(rs.next()){
                 Clazz clazz = new Clazz();
                 clazz.setName(rs.getString(2));
@@ -71,5 +71,22 @@ public class ClazzDO {
             e.printStackTrace();
         }
         return clazz;
+    }
+
+    //查询所有记录
+    public List<Clazz> findAll(List<Object> objects){
+        List<Clazz> list = new ArrayList<Clazz>();
+        try {
+            ResultSet rs = new DBUtils().find("select * from clazz where name like ?",objects);
+            while(rs.next()){
+                Clazz clazz = new Clazz();
+                clazz.setName(rs.getString(2));
+                clazz.setId(rs.getString(1));
+                list.add(clazz);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
