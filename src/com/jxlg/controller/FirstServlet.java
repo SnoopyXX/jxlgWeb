@@ -1,5 +1,7 @@
 package com.jxlg.controller;
 
+import com.jxlg.service.ClazzService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +64,9 @@ public class FirstServlet extends HttpServlet {
         session.setAttribute("username",name);
         session.setAttribute("userpwd",password);
 
-        if(name.equals("admin") && password.equals("123")){
+        ClazzService clazzService = new ClazzService();
+
+        if(clazzService.isLogin(name,password)){
             response.sendRedirect("banner.jsp");//页面跳转，重定向
             //请求转发 传递数据
 //            request.getRequestDispatcher("banner.jsp")

@@ -56,4 +56,20 @@ public class ClazzDO {
         return list;
     }
 
+    //根据id和name查找clazz
+    public Clazz findClazz(List<Object> objects){
+        ResultSet rs = new DBUtils().find(
+                "select * from clazz where id = ? and name = ?",
+                objects);
+        Clazz clazz = new Clazz();
+        try {
+            while(rs.next()){
+                clazz.setName(rs.getString(2));
+                clazz.setId(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clazz;
+    }
 }
